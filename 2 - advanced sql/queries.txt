@@ -48,7 +48,7 @@ WHERE Salary = (
 
 SELECT AVG(Salary)
 FROM Employees
-WHERE DepartmentId = 1;
+WHERE DepartmentId = 1; 
 
 -- 5 Write a SQL query to find the average salary in the "Sales" department.
 
