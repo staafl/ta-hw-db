@@ -143,10 +143,9 @@ SELECT FORMAT(GETDATE(), 'dd.MM.yyyy HH:mm:ss:fff');
 CREATE TABLE Users
 (
     UserId INT IDENTITY PRIMARY KEY,
-    Username VARCHAR(32) NOT NULL
-        CONSTRAINT UN_USERNAME UNIQUE, 
-    Password VARCHAR(32) -- later problem requires NULL
-        CONSTRAINT CK_LONG_PASSWORD CHECK(LEN(Password) >= 5),
+    Username VARCHAR(32) NOT NULL UNIQUE, 
+    -- later problem requires NULL-able
+    Password VARCHAR(32) CHECK(LEN(Password) >= 5),
     FullName VARCHAR(32) NOT NULL,
     LastLogin DATETIME
 );
@@ -172,7 +171,7 @@ SELECT * FROM UsersLoggedToday;
 CREATE TABLE Groups
 (
     GroupId INT IDENTITY PRIMARY KEY,
-	Name VARCHAR(16) CONSTRAINT UN_Name UNIQUE NOT NULL
+	Name VARCHAR(16) UNIQUE NOT NULL
 );
 
 -- 18 Write a SQL statement to add a column GroupID to the table Users. Fill
