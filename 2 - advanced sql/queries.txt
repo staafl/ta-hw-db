@@ -285,7 +285,7 @@ ORDER BY COUNT(*) DESC;
 
 -- 28 Write a SQL query to display the number of managers from each town.
 
-SELECT t.Name, COUNT(*)
+SELECT t.Name, COUNT(DISTINCT(m.EmployeeId))
 FROM Employees e 
 JOIN Addresses a ON e.AddressId = a.AddressId
 JOIN Towns t ON t.TownId = a.TownId
