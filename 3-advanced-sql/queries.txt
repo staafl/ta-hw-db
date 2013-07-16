@@ -48,7 +48,7 @@ WHERE Salary = (
 
 SELECT AVG(Salary)
 FROM Employees
-WHERE DepartmentId = 1;
+WHERE DepartmentId = 1; 
 
 -- 5 Write a SQL query to find the average salary in the "Sales" department.
 
@@ -94,8 +94,8 @@ SELECT d.Name, t.Name, COUNT(*)
 FROM Employees e 
 JOIN Departments d ON e.DepartmentId = d.DepartmentId
 JOIN Addresses a ON e.AddressId = a.AddressId
-JOIN Towns t ON t.TownId = a.AddressId
-GROUP BY d.DepartmentId, d.Name, t.Name;
+JOIN Towns t ON t.TownId = a.TownId
+GROUP BY d.DepartmentId, d.Name, t.TownId, t.Name;
 
 -- 11 Write a SQL query to find all managers that have exactly 5 employees.
 -- Display their first name and last name.
@@ -110,7 +110,7 @@ HAVING COUNT(*) = 5;
 -- 12 Write a SQL query to find all employees along with their managers. For
 -- employees that do not have manager display the value "(no manager)".
 
-SELECT e.LastName as Employee, COALESCE(m.LastName, '(no manager)') as Manager
+SELECT e.LastName as Employee, CASE WHEN e.ManagerId IS NULL THEN '(no manager)' ELSE m.LastName END as Manager
 FROM Employees e
 LEFT JOIN Employees m
 ON e.ManagerId = m.EmployeeId;
@@ -128,6 +128,10 @@ WHERE LEN(LastName) = 5;
 
 SELECT CONVERT(VARCHAR(10), GETDATE(), 104) + ' ' + CONVERT(VARCHAR(13), GETDATE(), 114);
 
+-- also
+
+SELECT FORMAT(GETDATE(), 'dd.MM.yyyy HH:mm:ss:fff');
+
 -- 15 Write a SQL statement to create a table Users. Users should have
 -- username, password, full name and last login time. Choose appropriate data
 -- types for the table fields. Define a primary key column with a primary key
@@ -139,10 +143,9 @@ SELECT CONVERT(VARCHAR(10), GETDATE(), 104) + ' ' + CONVERT(VARCHAR(13), GETDATE
 CREATE TABLE Users
 (
     UserId INT IDENTITY PRIMARY KEY,
-    Username VARCHAR(32) NOT NULL
-        CONSTRAINT UN_UNIQUE_USERNAME UNIQUE, 
-    Password VARCHAR(32) NOT NULL,
-        CONSTRAINT CK_LONG_PASSWORD CHECK(LEN(Password) >= 5),
+    Username VARCHAR(32) NOT NULL UNIQUE, 
+    -- later problem requires NULL-able
+    Password VARCHAR(32) CHECK(LEN(Password) >= 5),
     FullName VARCHAR(32) NOT NULL,
     LastLogin DATETIME
 );
@@ -152,7 +155,8 @@ CREATE TABLE Users
 -- correctly.
 
 CREATE VIEW UsersLoggedToday
-AS SELECT * FROM Users
+AS 
+SELECT * FROM Users
 WHERE DATEPART(DAYOFYEAR, LastLogin) = DATEPART(DAYOFYEAR, GETDATE()) AND
       DATEPART(YEAR, LastLogin) = DATEPART(YEAR, GETDATE());
 
@@ -164,19 +168,47 @@ SELECT * FROM UsersLoggedToday;
 -- unique name (use unique constraint). Define primary key and identity
 -- column.
 
+CREATE TABLE Groups
+(
+    GroupId INT IDENTITY PRIMARY KEY,
+	Name VARCHAR(16) UNIQUE NOT NULL
+);
+
 -- 18 Write a SQL statement to add a column GroupID to the table Users. Fill
 -- some data in this new column and as well in the Groups table. Write a SQL
 -- statement to add a foreign key constraint between tables Users and Groups
 -- tables.
 
+ALTER TABLE Users
+ADD GroupId INT FOREIGN KEY REFERENCES Groups(GroupId);
+
+INSERT Groups VALUES ('Admins');
+INSERT Groups VALUES ('Moderators');
+INSERT Groups VALUES ('Losers');
+
+UPDATE Users SET GroupId = 1;
+
+INSERT Users VALUES ('Johnnie123', 'asdfasdf', 'John',  GETDATE(), 2);
+INSERT Users VALUES ('mincheto92', 'fluffybunn1es', 'Minka', GETDATE(), 2);
+INSERT Users VALUES ('ImpeachThis', 'monikka', 'Bill Clinton', GETDATE(), 3);
+INSERT Users VALUES ('MeinKampf', 'atakakaka', 'Volen Siderov', GETDATE(), 3);
+
 -- 19 Write SQL statements to insert several records in the Users and Groups
 -- tables.
+
+see above
 
 -- 20 Write SQL statements to update some of the records in the Users and
 -- Groups tables.
 
+UPDATE Groups SET Name = UPPER(Name);
+UPDATE Users SET FullName = REVERSE(FullName) WHERE Username LIKE '%2%';
+
 -- 21 Write SQL statements to delete some of the records from the Users and
 -- Groups tables.
+
+DELETE FROM Users WHERE FullName LIKE '% %';
+DELETE FROM Groups WHERE GroupId = 3;
 
 -- 22 Write SQL statements to insert in the Users table the names of all
 -- employees from the Employees table. Combine the first and last names as a
@@ -184,22 +216,81 @@ SELECT * FROM UsersLoggedToday;
 -- name (in lowercase). Use the same for the password, and NULL for last login
 -- time.
 
+BEGIN TRAN
+
+	-- fixme - isn't there a better way
+
+	SELECT 
+		-- add number to satisfy uniqueness constraint
+		LOWER(LEFT(FirstName, 1) + LastName) + CONVERT(nvarchar(5), ROW_NUMBER() OVER(ORDER BY FirstName)) AS UserName, 
+		FirstName + ' ' + LastName AS FullName 
+	INTO #TempUsers
+	FROM Employees;
+
+	INSERT Users 
+	SELECT 
+		UserName, 
+		-- pad password with '*' to satisfy length constraint
+		UserName + REPLACE(ISNULL(SPACE(5 - LEN(UserName)),''), ' ', '*'),
+		FullName, 
+		NULL, 
+		NULL
+	FROM #TempUsers;
+
+	DROP TABLE #TempUsers;
+
+GO
+
 -- 23 Write a SQL statement that changes the password to NULL for all users
 -- that have not been in the system since 10.03.2010.
+
+INSERT Users VALUES ('DealWithIt', 'obamination', 'Barack Obama', CONVERT(DATE, '09.03.2010', 104));
+
+UPDATE Users SET Password = NULL
+WHERE LastLogin <  CONVERT(DATE, '10.03.2010', 104);
 
 -- 24 Write a SQL statement that deletes all users without passwords (NULL
 -- password).
 
+DELETE FROM Users
+WHERE Password IS NULL;
+
 -- 25 Write a SQL query to display the average employee salary by department
 -- and job title.
+
+SELECT d.Name, e.JobTitle, AVG(e.Salary)
+FROM Employees e JOIN Departments d ON e.DepartmentId = d.DepartmentId
+GROUP BY d.DepartmentId, d.Name, e.JobTitle;
 
 -- 26 Write a SQL query to display the minimal employee salary by department
 -- and job title along with the name of some of the employees that take it.
 
+SELECT e.Salary, e.LastName, d.Name
+FROM Employees e JOIN Departments d ON e.DepartmentId = d.DepartmentId
+WHERE e.Salary = (
+	SELECT MIN(Salary) 
+	FROM Employees e1 
+	WHERE e1.DepartmentId = e.DepartmentId);
+
 -- 27 Write a SQL query to display the town where maximal number of employees
 -- work.
 
+-- let's hope SQL Server optimizes this!
+SELECT TOP(1) t.Name
+FROM Employees e 
+JOIN Addresses a ON e.AddressId = a.AddressId
+JOIN Towns t ON t.TownId = a.TownId
+GROUP BY t.TownId, t.Name
+ORDER BY COUNT(*) DESC;
+
 -- 28 Write a SQL query to display the number of managers from each town.
+
+SELECT t.Name, COUNT(DISTINCT(m.EmployeeId))
+FROM Employees e 
+JOIN Addresses a ON e.AddressId = a.AddressId
+JOIN Towns t ON t.TownId = a.TownId
+WHERE e.ManagerId IS NOT NULL
+GROUP BY t.TownId, t.Name;
 
 -- 29 Write a SQL to create table WorkHours to store work reports for each
 -- employee (employee id, date, task, hours, comments). Don't forget to define
@@ -210,13 +301,77 @@ SELECT * FROM UsersLoggedToday;
 -- with triggers. For each change keep the old record data, the new record
 -- data and the command (insert / update / delete).
 
+CREATE TABLE WorkHours
+(
+	Id INT IDENTITY PRIMARY KEY,
+	EmployeeId INT NOT NULL FOREIGN KEY REFERENCES Employees(EmployeeId),
+	Date_ DATE NOT NULL,
+	Task VARCHAR(16) NOT NULL,
+	Hours_ INT NOT NULL,
+	Comments TEXT
+);
+
+
 -- 30 Start a database transaction, delete all employees from the 'Sales'
--- department along with all dependent records from the pother tables. At the
+-- department along with all dependent records from the other tables. At the
 -- end rollback the transaction.
+
+BEGIN TRAN
+	ALTER TABLE EmployeesProjects
+	ADD CONSTRAINT FK_CASCADE_1 FOREIGN KEY (EmployeeID)
+	REFERENCES Employees (EmployeeID)
+	ON DELETE CASCADE;
+
+    -- to run this, modify ManagerId to accept null
+	ALTER TABLE Departments
+	ADD CONSTRAINT FK_CASCADE_2 FOREIGN KEY (ManagerId)
+	REFERENCES Employees (EmployeeID)
+	ON DELETE SET NULL;
+
+	DELETE FROM Employees 
+	WHERE DepartmentId IN (SELECT DepartmentId FROM Departments WHERE Name = 'Sales')
+	
+	-- no need to explicitly drop the constraints
+
+	ROLLBACK TRAN
+GO
 
 -- 31 Start a database transaction and drop the table EmployeesProjects. Now
 -- how you could restore back the lost table data?
 
+-- snapshots - not supported in Express Edition
+
+BEGIN TRAN
+	CREATE DATABASE TelerikAcademy_snapshot1900 
+	ON (NAME = TelerikAcademy_Data, FILENAME = 'TelerikAcademy_snapshot1900.ss')
+	AS SNAPSHOT OF TelerikAcademy;
+
+	DROP TABLE EmployeesProjects
+	-- ROLLBACK TRAN
+GO
+
+BEGIN TRAN
+	-- kick users
+	ALTER DATABASE TelerikAcademy
+	SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+
+	-- restore database
+	USE master;
+	RESTORE DATABASE TeleikAcademy FROM DATABASE_SNAPSHOT = 'TelerikAcademy_snapshot1900';
+GO
+
 -- 32 Find how to use temporary tables in SQL Server. Using temporary tables
 -- backup all records from EmployeesProjects and restore them back after
 -- dropping and re-creating the table.
+
+BEGIN TRAN
+	SELECT * INTO #TempEmployeesProjects 
+	FROM EmployeesProjects;
+
+	DROP TABLE EmployeesProjects;
+
+	SELECT * INTO EmployeesProjects
+	FROM #TempEmployeesProjects;
+	
+	DROP TABLE #TempEmployeesProjects
+GO
