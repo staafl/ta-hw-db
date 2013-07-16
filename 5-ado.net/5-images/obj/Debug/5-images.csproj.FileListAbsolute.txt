@@ -1,0 +1,5 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\5-images\bin\debug\5-images.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\5-images\bin\debug\5-images.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\5-images\obj\Debug\5-images.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\5-images\obj\Debug\5-images.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\5-images\obj\Debug\5-images.csprojResolveAssemblyReference.cache

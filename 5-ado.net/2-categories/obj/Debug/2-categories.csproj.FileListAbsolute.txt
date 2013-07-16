@@ -1,0 +1,5 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\2-categories\bin\debug\2-categories.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\2-categories\bin\debug\2-categories.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\2-categories\obj\Debug\2-categories.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\2-categories\obj\Debug\2-categories.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\2-categories\obj\Debug\2-categories.csprojResolveAssemblyReference.cache

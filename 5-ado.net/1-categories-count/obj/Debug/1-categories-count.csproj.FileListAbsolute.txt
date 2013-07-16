@@ -1,0 +1,5 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\1-categories-count\bin\debug\1-categories-count.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\1-categories-count\bin\debug\1-categories-count.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\1-categories-count\obj\Debug\1-categories-count.csprojResolveAssemblyReference.cache
+D:\_lib\telerik academy\db\homework\5-ado.net\1-categories-count\obj\Debug\1-categories-count.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\1-categories-count\obj\Debug\1-categories-count.pdb

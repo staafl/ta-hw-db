@@ -1,0 +1,4 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\8-find-products\bin\debug\8-find-products.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\8-find-products\bin\debug\8-find-products.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\8-find-products\obj\Debug\8-find-products.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\8-find-products\obj\Debug\8-find-products.pdb

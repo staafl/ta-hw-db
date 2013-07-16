@@ -1,0 +1,4 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\3-categories-and-products\bin\debug\3-categories-and-products.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\3-categories-and-products\bin\debug\3-categories-and-products.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\3-categories-and-products\obj\Debug\3-categories-and-products.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\3-categories-and-products\obj\Debug\3-categories-and-products.pdb

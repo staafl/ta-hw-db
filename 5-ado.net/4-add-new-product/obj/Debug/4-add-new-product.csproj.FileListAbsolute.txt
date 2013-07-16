@@ -1,0 +1,4 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\4-add-new-product\bin\debug\4-add-new-product.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\4-add-new-product\bin\debug\4-add-new-product.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\4-add-new-product\obj\Debug\4-add-new-product.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\4-add-new-product\obj\Debug\4-add-new-product.pdb

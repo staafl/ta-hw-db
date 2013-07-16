@@ -1,0 +1,5 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\6-excel-name-score\bin\debug\6-excel-name-score.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\6-excel-name-score\bin\debug\6-excel-name-score.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\6-excel-name-score\obj\Debug\6-excel-name-score.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\6-excel-name-score\obj\Debug\6-excel-name-score.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\6-excel-name-score\obj\Debug\6-excel-name-score.csprojResolveAssemblyReference.cache

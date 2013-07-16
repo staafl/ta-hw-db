@@ -1,0 +1,5 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\7-excel-add-new-row\bin\debug\7-excel-add-new-row.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\7-excel-add-new-row\bin\debug\7-excel-add-new-row.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\7-excel-add-new-row\obj\Debug\7-excel-add-new-row.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\7-excel-add-new-row\obj\Debug\7-excel-add-new-row.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\7-excel-add-new-row\obj\Debug\7-excel-add-new-row.csprojResolveAssemblyReference.cache

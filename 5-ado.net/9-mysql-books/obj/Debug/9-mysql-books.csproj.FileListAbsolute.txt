@@ -1,0 +1,6 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\9-mysql-books\bin\debug\9-mysql-books.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\9-mysql-books\bin\debug\9-mysql-books.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\9-mysql-books\obj\Debug\9-mysql-books.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\9-mysql-books\obj\Debug\9-mysql-books.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\9-mysql-books\obj\Debug\9-mysql-books.csprojResolveAssemblyReference.cache
+D:\_lib\telerik academy\db\homework\5-ado.net\9-mysql-books\bin\debug\MySql.Data.dll

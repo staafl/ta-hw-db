@@ -1,0 +1,8 @@
+D:\_lib\telerik academy\db\homework\5-ado.net\10-sqlite-books\bin\debug\10-sqlite-books.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\10-sqlite-books\bin\debug\10-sqlite-books.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\10-sqlite-books\obj\Debug\10-sqlite-books.exe
+D:\_lib\telerik academy\db\homework\5-ado.net\10-sqlite-books\obj\Debug\10-sqlite-books.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\10-sqlite-books\obj\Debug\10-sqlite-books.csprojResolveAssemblyReference.cache
+D:\_lib\telerik academy\db\homework\5-ado.net\10-sqlite-books\bin\debug\System.Data.SQLite.dll
+D:\_lib\telerik academy\db\homework\5-ado.net\10-sqlite-books\bin\debug\System.Data.SQLite.pdb
+D:\_lib\telerik academy\db\homework\5-ado.net\10-sqlite-books\bin\debug\System.Data.SQLite.xml
